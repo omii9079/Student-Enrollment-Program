@@ -21,6 +21,7 @@ public class SecurityConfig {
                 .sessionManagement((s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)))
                 //auth is object you use inside the lambda is an instance of the class AuthorizeHttpRequestsConfigurer.AuthorizationManagerRequestMatcherRegistry this class is like Rule Builder this gives you methods like such as requestmatcher , permitall ...when we call it we are adding the security rule into Spring internal list
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/send/mail").permitAll()
                         .requestMatchers("/api/auth/create-super-admin", "/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/create-admin").hasRole("SUPER_ADMIN")
                         .requestMatchers("/api/org/**").hasRole("SUPER_ADMIN")  // hasrole internally add like ROLE_ SUPER_ADMIN

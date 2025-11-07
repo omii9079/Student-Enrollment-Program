@@ -32,7 +32,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
 
         String path = req.getServletPath();
-        if (path.startsWith("/api/auth/login") || path.startsWith("/api/auth/create-super-admin")) {
+        if (path.startsWith("/api/auth/login") || path.startsWith("/api/auth/create-super-admin") || path.startsWith("/send/mail")) {
             chain.doFilter(req, res);
             return;
         }
@@ -42,7 +42,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             token = header.substring(7);
         }
 
-     
+
         try {
             var claims = jwtUtil.Validate(token).getBody();
             String email = claims.getSubject();
